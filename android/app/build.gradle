@@ -110,6 +110,8 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation("org.mongodb:mongodb-driver-sync:4.4.0")
+    implementation("org.mindrot:jbcrypt:0.4")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
