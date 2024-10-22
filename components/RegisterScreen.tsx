@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextInput, Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { Button, TextInput, Text, View, Touchable, TouchableOpacity, SafeAreaView, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 import { NativeModules } from 'react-native';
@@ -19,8 +19,8 @@ interface UserAuthenticationModuleInterface {
 
 const UserAuthenticationModule = UserAuthModule as UserAuthenticationModuleInterface;
 
-const RegisterScreen : React.FC<Props> = ({ navigation }) => {
-    
+const RegisterScreen: React.FC<Props> = ({ navigation }) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -45,54 +45,111 @@ const RegisterScreen : React.FC<Props> = ({ navigation }) => {
     }
   };
 
-    return (
-        <SafeAreaView style={styles.container}>
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor={'gray'}
-            onChangeText={text => setEmail(text)}
-          />
-          <TextInput
-            placeholder="Password"
-            placeholderTextColor={'gray'}
-            secureTextEntry={true}
-            onChangeText={text => setPassword(text)}
-            value={password}
-          />
-          <TextInput
-            placeholder="Confirm Password"
-            placeholderTextColor={'gray'}
-            secureTextEntry={true}
-            onChangeText={text => setConfirmPassword(text)}
-            value={confirmPassword}
-          />
-          <Button
-            title="Sign Up"
-            onPress={handleRegister}
-          />
-          <Button
-            title="Login"
-            onPress={() => navigation.navigate('Login')}
-          />
-          {Object.values(errors).map((error, index) => (
-            <Text key={index}>
-              {error as string}
-            </Text>
-          ))}
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView style={styles.container}>
+      <TextInput style={styles.textInput}
+        placeholder="Email"
+        placeholderTextColor={'#5BFFBD'}
+        onChangeText={text => setEmail(text)}
+      />
+      <TextInput style={styles.textInput}
+        placeholder="Password"
+        placeholderTextColor={'#5BFFBD'}
+        secureTextEntry={true}
+        onChangeText={text => setPassword(text)}
+        value={password}
+      />
+      <TextInput style={[styles.textInput, styles.lastInput]}
+        placeholder="Confirm Password"
+        placeholderTextColor={'#5BFFBD'}
+        secureTextEntry={true}
+        onChangeText={text => setConfirmPassword(text)}
+        value={confirmPassword}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.text}>Sign Up</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.button, styles.second]} onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.text}>Login</Text>
+      </TouchableOpacity>
+
+
+
+      {Object.values(errors).map((error, index) => (
+        <Text key={index} style={styles.error}>
+          {error as string}
+        </Text>
+      ))}
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#484D56',
+  },
+  button: {
+    backgroundColor: '#008B50',
+    padding: 10,
+    borderRadius: 30,
+    paddingLeft: 45,
+    paddingRight: 45,
+    width: 250,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 11,
     },
-    header: {
-        alignItems: 'center',
-        marginTop: 20,
+    shadowOpacity: 30.95,
+    shadowRadius: 14.78,
+    elevation: 22,
+  },
+  second: {
+    marginTop: 20,
+  },
+  lastInput: {
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 32,
+    color: '#5BFFBD',
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  textInput: {
+    fontSize: 20,
+    color: '#5BFFBD',
+    textAlign: "center",
+    backgroundColor: '#64896B',
+    fontWeight: "light",
+    padding: 10,
+    paddingLeft: 45,
+    paddingRight: 45,
+    marginBottom: 10,
+    width: 350,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 11,
     },
+    shadowOpacity: 30.95,
+    shadowRadius: 14.78,
+    elevation: 22,
+  },
+  header: {
+    alignItems: 'center',
+    marginTop: 20,
+  }, 
+  error: {
+    fontWeight: "bold",
+    color: "red",
+    marginTop: 20,
+  }
 });
 
 export default RegisterScreen;

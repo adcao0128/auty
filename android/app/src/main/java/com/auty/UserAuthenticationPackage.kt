@@ -1,5 +1,5 @@
 package com.auty
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage
+
 import com.auty.modules.UserAuthModule
 import com.auty.modules.UserModel
 

@@ -33,10 +33,43 @@ function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Welcome'>
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={
+          { 
+          headerStyle: {
+            backgroundColor: '#34661E',
+          },
+          headerTintColor: '#5BFFBD',
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }} />
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen}options={
+          { 
+          headerStyle: {
+            backgroundColor: '#34661E',
+          },
+          headerTintColor: '#5BFFBD',
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }}  />
+        <Stack.Screen name="Home" component={HomeScreen} options={
+          { 
+          headerStyle: {
+            backgroundColor: '#34661E',
+          },
+          headerTintColor: '#5BFFBD',
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }} />
         <Stack.Screen name="Account" component={AccountScreen} />
         <Stack.Screen name="NotificationLog" component={NotificationLogScreen} />
         <Stack.Screen name="RegisterWorkflow" component={RegisterWorkflowScreen} />
@@ -46,7 +79,11 @@ function App(): React.JSX.Element {
   );
 }
 
+
+
 const styles = StyleSheet.create({
+
+
 });
 
 export default App;
