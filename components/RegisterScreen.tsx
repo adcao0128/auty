@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Button, TextInput, Text, View, Touchable, TouchableOpacity, SafeAreaView, StyleSheet } from 'react-native';
+import { TextInput, Text, TouchableOpacity, SafeAreaView, StyleSheet, NativeModules } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
-import { NativeModules } from 'react-native';
 
 const { UserAuthModule } = NativeModules;
 

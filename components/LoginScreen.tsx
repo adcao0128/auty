@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput, Text, View, SafeAreaView, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { TextInput, Text, View, SafeAreaView, StyleSheet, TouchableOpacity, NativeModules } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 import CheckBox from '@react-native-community/checkbox';
@@ -10,8 +10,6 @@ import {
   storeCheckStatus,
   storeUserEmail,
 } from './RememberMe';
-
-import { NativeModules } from 'react-native';
 
 const { UserAuthModule } = NativeModules;
 
@@ -26,7 +24,6 @@ type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'
 
 export type Props = {
   navigation: LoginScreenNavigationProp;
-  userAuthModule?: UserAuthenticationModuleInterface;
 };
 
 

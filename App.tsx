@@ -1,14 +1,5 @@
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -28,7 +19,6 @@ enableScreens();
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <NavigationContainer>
@@ -126,8 +116,6 @@ function App(): React.JSX.Element {
 
 
 const styles = StyleSheet.create({
-
-
 });
 
 export default App;

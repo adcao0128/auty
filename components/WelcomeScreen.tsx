@@ -1,9 +1,7 @@
 import React from 'react';
-import { Button, Text, View, SafeAreaView, StyleSheet, Touchable, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
-import LoginScreen from './LoginScreen.tsx';
-import RegisterScreen from './RegisterScreen.tsx';
 
 type WelcomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Welcome'>;
 

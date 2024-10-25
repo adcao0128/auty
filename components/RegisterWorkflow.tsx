@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 
