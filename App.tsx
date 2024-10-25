@@ -45,7 +45,18 @@ function App(): React.JSX.Element {
             fontSize: 30,
           },
         }} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} options={
+          { 
+          headerStyle: {
+            backgroundColor: '#34661E',
+          },
+          headerTintColor: '#5BFFBD',
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }}/>
         <Stack.Screen name="Register" component={RegisterScreen}options={
           { 
           headerStyle: {
@@ -70,9 +81,42 @@ function App(): React.JSX.Element {
             fontSize: 30,
           },
         }} />
-        <Stack.Screen name="Account" component={AccountScreen} />
-        <Stack.Screen name="NotificationLog" component={NotificationLogScreen} />
-        <Stack.Screen name="RegisterWorkflow" component={RegisterWorkflowScreen} />
+        <Stack.Screen name="Account" component={AccountScreen} options={
+          { 
+          headerStyle: {
+            backgroundColor: '#34661E',
+          },
+          headerTintColor: '#5BFFBD',
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }}/>
+        <Stack.Screen name="NotificationLog" component={NotificationLogScreen} options={
+          { 
+          headerStyle: {
+            backgroundColor: '#34661E',
+          },
+          headerTintColor: '#5BFFBD',
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }}/>
+        <Stack.Screen name="RegisterWorkflow" component={RegisterWorkflowScreen} options={
+          { 
+          headerStyle: {
+            backgroundColor: '#34661E',
+          },
+          headerTintColor: '#5BFFBD',
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 30,
+          },
+        }}/>
       </Stack.Navigator>
     </NavigationContainer>
     

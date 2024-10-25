@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput, Text, View, SafeAreaView, StyleSheet, Button } from 'react-native';
+import { TextInput, Text, View, SafeAreaView, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 import CheckBox from '@react-native-community/checkbox';
@@ -43,14 +43,11 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
           const checkValue = await getCheckStatus();
           console.log('got status value:', checkValue);
           console.log('got email value:', emailValue);
-          if (emailValue) {
-            setEmail(emailValue.emailValue)
-          }
           if (checkValue) {
             setRememberMe(checkValue.rememberMeValue);
-          }
-          if (!checkValue) {
-            clearUserEmail();
+            if (emailValue) {
+              setEmail(emailValue.emailValue)
+            }
           }
         } catch (error) {
           console.error('Error fetching checkValue or email:', error);
@@ -71,6 +68,12 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
         
         if (authenticationResult === "User authenticated") {
           navigation.navigate("Home");
+          if (rememberMe) {
+            storeUserEmail(email)
+          } else {
+            clearUserEmail()
+          }
+
         } else {
           const errors: { [key: string]: string } = {};
           errors.authenticate = 'Failed to authenticate';
@@ -88,36 +91,36 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
           <TextInput
+            style={styles.textInput}
             placeholder="Email"
-            placeholderTextColor={'gray'}
+            placeholderTextColor={'#5BFFBD'}
             onChangeText={text => setEmail(text)}
             value={email}
           />
           <TextInput
+            style={styles.textInput}
             placeholder="Password"
-            placeholderTextColor={'gray'}
+            placeholderTextColor={'#5BFFBD'}
             secureTextEntry={true}
             onChangeText={text => setPassword(text)}
             value={password}
           />
-          <View>
+          <View style={styles.rememberContainer}>
             <CheckBox
               value={rememberMe}
               tintColors={{true: 'purple', false: 'gray'}}
               onValueChange={handleCheckboxPress}
             />
-            <Text>Remember Me</Text>
+            <Text style={styles.text}>Remember Me</Text>
           </View>
-          <Button
-            title="Sign In"
-            onPress={handleSignIn}
-          />
-          <Button
-            title="Register"
-            onPress={() => navigation.navigate('Register')}
-          />
+          <TouchableOpacity style={[styles.button, styles.second]} onPress={handleSignIn}>
+            <Text style={styles.text}>Sign In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, styles.second]} onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.text}>Register</Text>
+          </TouchableOpacity>
           {Object.values(errors).map((error, index) => (
-            <Text key={index}>
+            <Text key={index} style={styles.error}>
               {error as string}
             </Text>
           ))}
@@ -126,15 +129,72 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#484D56',
+  },
+  rememberContainer: {
+    flexDirection: 'row',
+  },
+  button: {
+    backgroundColor: '#008B50',
+    padding: 5,
+    borderRadius: 30,
+    paddingLeft: 45,
+    paddingRight: 45,
+    width: 250,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 11,
     },
-    header: {
-        alignItems: 'center',
-        marginTop: 20,
+    shadowOpacity: 30.95,
+    shadowRadius: 14.78,
+    elevation: 22,
+  },
+  second: {
+    marginTop: 20,
+  },
+  lastInput: {
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 24,
+    color: '#5BFFBD',
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  textInput: {
+    fontSize: 20,
+    color: '#5BFFBD',
+    textAlign: "center",
+    backgroundColor: '#64896B',
+    fontWeight: "light",
+    padding: 10,
+    paddingLeft: 45,
+    paddingRight: 45,
+    marginBottom: 10,
+    width: 350,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 11,
     },
+    shadowOpacity: 30.95,
+    shadowRadius: 14.78,
+    elevation: 22,
+  },
+  header: {
+    alignItems: 'center',
+    marginTop: 20,
+  }, 
+  error: {
+    fontWeight: "bold",
+    color: "red",
+    marginTop: 20,
+  }
 });
 
 export default LoginScreen;
