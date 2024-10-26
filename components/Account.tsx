@@ -10,7 +10,6 @@ type Props = {
 };
 
 const AccountScreen : React.FC<Props> = ({ navigation }) => {
-
     return (
         <SafeAreaView style={styles.container}>
         </SafeAreaView>

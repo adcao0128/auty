@@ -1,7 +1,6 @@
 package com.auty
 
-import com.auty.modules.UserAuthModule
-import com.auty.modules.UserModel
+import com.auty.AppletPackage
 import com.auty.UserAuthenticationPackage
 
 import android.app.Application
@@ -24,6 +23,7 @@ class MainApplication : Application(), ReactApplication {
               // Packages that cannot be autolinked yet can be added manually here, for example:
               // add(MyReactNativePackage())
               add(UserAuthenticationPackage())
+              add(AppletPackage())
             }
 
         override fun getJSMainModuleName(): String = "index"

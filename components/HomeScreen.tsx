@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useState, useEffect } from 'react';
+import { Text, SafeAreaView, TouchableOpacity, StyleSheet, NativeModules } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 
@@ -9,11 +9,36 @@ type Props = {
     navigation: HomeScreenNavigationProp;
 };
 
+const { AppletModule } = NativeModules;
+
+interface AppletModule {
+    initializeApplets: () => Promise<string>;
+}
+
+const WorkflowModule = AppletModule as AppletModule;
+
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
+    const [applet, setApplet] = useState('');
+
+    useEffect(() => {
+        const fetchApplets = async () => {
+          try {
+            const initApplet: string = await WorkflowModule.initializeApplets()
+            if (initApplet === "Applets initialized") {
+                setApplet(initApplet);
+                console.log("Applets created");
+            } else {
+                console.error('Error initializing applets');
+            }
+          } catch (error) {
+            console.error('Error fetching applets', error);
+          }
+        };
+        fetchApplets();
+      }, []);
 
     return (
         <SafeAreaView style={styles.container}>
-
             <TouchableOpacity style={[styles.button, styles.topButton]} onPress={() => navigation.navigate('Account')}>
                 <Text style={styles.text}>Account</Text>
             </TouchableOpacity>
@@ -29,8 +54,6 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Welcome')}>
                 <Text style={styles.text}>Logout</Text>
             </TouchableOpacity>
-
-
         </SafeAreaView>
     );
 };
