@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#484D56',
+    backgroundColor: '#0f170b',
   },
   rememberContainer: {
     flexDirection: 'row',
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#5BFFBD',
     textAlign: "center",
-    backgroundColor: '#64896B',
+    backgroundColor: '#16732c',
     fontWeight: "light",
     padding: 10,
     paddingLeft: 45,
