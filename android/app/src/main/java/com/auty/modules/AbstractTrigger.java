@@ -18,6 +18,10 @@ public abstract class AbstractTrigger<T> extends Service {
         return triggerName;
     }
 
+    public T getCondition(){
+        return this.condition;
+    }
+
     public void setTriggerName(String triggerName) {
         this.triggerName = triggerName;
     }

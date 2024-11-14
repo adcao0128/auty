@@ -26,7 +26,7 @@ public class Workflow extends AppCompatActivity {
 
     public void handle() {
 
-        String intentName = String.format("com.example.myapplication.%s", trigger.getTriggerName());
+        String intentName = String.format("com.auty.%s", trigger.getTriggerName());
 
         batteryReceiver = new BroadcastReceiver() {
             @Override
@@ -46,7 +46,7 @@ public class Workflow extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        String intentName = String.format("com.example.myapplication.%s", trigger.getTriggerName());
+        String intentName = String.format("com.auty.%s", trigger.getTriggerName());
 
         IntentFilter iFilter = new IntentFilter(intentName);
         registerReceiver(batteryReceiver, iFilter);
@@ -56,6 +56,10 @@ public class Workflow extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         unregisterReceiver(batteryReceiver);
+    }
+
+    public AbstractTrigger getTrigger() {
+        return this.trigger;
     }
 
 }
