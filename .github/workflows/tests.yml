@@ -26,9 +26,9 @@ jobs:
           java-version: '17'
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.1.0
         with:
-          node-version: '16'
+          node-version: '20.13.1'
 
       - name: Cache Node modules
         uses: actions/cache@v3
