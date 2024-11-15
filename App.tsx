@@ -61,11 +61,12 @@ function App(): React.JSX.Element {
           },
        
         }}  />
-        <Stack.Screen name="Home" component={HomeScreen} options={
-          { 
+        <Stack.Screen name="Home" component={HomeScreen} options={{ 
           headerStyle: {
             backgroundColor: '#000000',
           },
+          gestureEnabled: false,
+          headerBackVisible: false,
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
           headerTitleStyle: {
