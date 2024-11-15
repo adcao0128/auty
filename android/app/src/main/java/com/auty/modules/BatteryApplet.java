@@ -16,6 +16,8 @@ public class BatteryApplet extends  Applet{
     boolean isCharging;
     int batteryPercent;
     private NotificationApplet notificationApplet;
+    private long lastChargingNotificationTime = 0;
+    private static final long NOTIFICATION_COOLDOWN = 6000;
 
     public BatteryApplet(Context context, NotificationApplet notificationApplet) {
         super("BatteryApp", "config");
@@ -51,12 +53,19 @@ public class BatteryApplet extends  Applet{
         this.isCharging = isCharging;
         this.batteryPercent = batteryPercent;
 
-        if(isCharging){
-            notificationApplet.sendNotification("Battery", "Charging", "Battery is charging");
+        long currentTime = System.currentTimeMillis();
 
+        if(isCharging){
+            if (currentTime - lastChargingNotificationTime > NOTIFICATION_COOLDOWN) {
+                notificationApplet.sendNotification("Battery", "Charging", "Battery is charging");
+                lastChargingNotificationTime = currentTime;
+            }
         }
         else if(batteryPercent < 20){
-            notificationApplet.sendNotification("Battery", "Low", "Battery is low");
+            if (currentTime - lastChargingNotificationTime > NOTIFICATION_COOLDOWN) {
+                notificationApplet.sendNotification("Battery", "Low", "Battery is low");
+                lastChargingNotificationTime = currentTime;
+            }
         }
     }
 

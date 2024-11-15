@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Button, TextInput, Text, View, Touchable, TouchableOpacity, SafeAreaView, StyleSheet } from 'react-native';
+import { TextInput, Text, TouchableOpacity, SafeAreaView, StyleSheet, NativeModules } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
-import { NativeModules } from 'react-native';
 
 const { UserAuthModule } = NativeModules;
 
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#484D56',
+    backgroundColor: '#0f170b',
   },
   button: {
     backgroundColor: '#008B50',
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#5BFFBD',
     textAlign: "center",
-    backgroundColor: '#64896B',
+    backgroundColor: '#16732c',
     fontWeight: "light",
     padding: 10,
     paddingLeft: 45,

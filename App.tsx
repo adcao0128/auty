@@ -1,14 +1,5 @@
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -28,7 +19,6 @@ enableScreens();
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <NavigationContainer>
@@ -36,7 +26,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={
           { 
           headerStyle: {
-            backgroundColor: '#34661E',
+            backgroundColor: '#000000',
           },
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
@@ -48,19 +38,20 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Login" component={LoginScreen} options={
           { 
           headerStyle: {
-            backgroundColor: '#34661E',
+            backgroundColor: '#000000',
           },
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
           headerTitleStyle: {
             fontWeight: "bold",
             fontSize: 30,
+            
           },
         }}/>
         <Stack.Screen name="Register" component={RegisterScreen}options={
           { 
           headerStyle: {
-            backgroundColor: '#34661E',
+            backgroundColor: '#000000',
           },
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
@@ -68,23 +59,25 @@ function App(): React.JSX.Element {
             fontWeight: "bold",
             fontSize: 30,
           },
+       
         }}  />
-        <Stack.Screen name="Home" component={HomeScreen} options={
-          { 
+        <Stack.Screen name="Home" component={HomeScreen} options={{ 
           headerStyle: {
-            backgroundColor: '#34661E',
+            backgroundColor: '#000000',
           },
+          gestureEnabled: false,
+          headerBackVisible: false,
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
           headerTitleStyle: {
             fontWeight: "bold",
             fontSize: 30,
-          },
+          },   
         }} />
         <Stack.Screen name="Account" component={AccountScreen} options={
           { 
           headerStyle: {
-            backgroundColor: '#34661E',
+            backgroundColor: '#000000',
           },
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
@@ -96,7 +89,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="NotificationLog" component={NotificationLogScreen} options={
           { 
           headerStyle: {
-            backgroundColor: '#34661E',
+            backgroundColor: '#000000',
           },
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
@@ -108,7 +101,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="RegisterWorkflow" component={RegisterWorkflowScreen} options={
           { 
           headerStyle: {
-            backgroundColor: '#34661E',
+            backgroundColor: '#000000',
           },
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
@@ -126,8 +119,6 @@ function App(): React.JSX.Element {
 
 
 const styles = StyleSheet.create({
-
-
 });
 
 export default App;

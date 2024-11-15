@@ -1,9 +1,7 @@
-import React from 'react';
-import { Button, Text, View, SafeAreaView, StyleSheet, Touchable, TouchableOpacity, TouchableHighlight } from 'react-native';
+import React, { useState } from 'react';
+import { Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
-import LoginScreen from './LoginScreen.tsx';
-import RegisterScreen from './RegisterScreen.tsx';
 
 type WelcomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Welcome'>;
 
@@ -63,7 +61,7 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#484D56',
+      backgroundColor: '#0f170b',
     },
     header: {
         alignItems: 'center',
