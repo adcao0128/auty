@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.auty.modules;
 
 import android.app.Notification;
 import android.content.BroadcastReceiver;

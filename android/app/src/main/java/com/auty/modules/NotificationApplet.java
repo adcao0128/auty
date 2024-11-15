@@ -88,7 +88,7 @@ public class NotificationApplet extends Applet{
 
     public void requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (context != null) {
+            if (context instanceof Activity) {
                 ActivityCompat.requestPermissions((Activity) context,
                         new String[]{android.Manifest.permission.POST_NOTIFICATIONS},
                         PERMISSION_REQUEST_CODE);
