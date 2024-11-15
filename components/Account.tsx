@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import * as Keychain from 'react-native-keychain';
 import { TextInput, Text, TouchableOpacity, SafeAreaView, StyleSheet, NativeModules, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
@@ -10,42 +11,64 @@ type Props = {
 };
 
 const AccountScreen : React.FC<Props> = ({ navigation }) => {
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+      const getAuthenticatedUserDetails = async () => {
+        try {
+          const credentials = await Keychain.getGenericPassword();
+          if (credentials) {
+            console.log(
+              'Credentials successfully loaded for user ' + credentials.username
+            );
+            setEmail(credentials.username);
+          } else {
+            console.log('No credentials stored');
+          }
+        } catch (error) {
+          console.error("Failed to access Keychain", error);
+        }
+      };
+
+      getAuthenticatedUserDetails();
+    })
+
     return (
         <SafeAreaView style={styles.container}>
+          <View>
 
+            <View>
+              <Text style={styles.text}>Account Information for {email}</Text>
+            </View>
 
-<View > 
-        <View style={styles.workflowCont}>
-          <TouchableOpacity style={[styles.button]} onPress={() => navigation.navigate('Account')}>
-            <Text style={styles.text}>Set</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-          <Text style={[styles.text]}>Unset</Text>
-          </TouchableOpacity>
-        </View>
+            <View style={styles.workflowCont}>
+              <TouchableOpacity style={[styles.button]} onPress={() => navigation.navigate('Account')}>
+                <Text style={styles.text}>Set</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
+                <Text style={[styles.text]}>Unset</Text>
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.workflowCont}>
-          <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
-            <Text style={[styles.text]}>Unset</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-          <Text style={[styles.text]}>Unset</Text>
-          </TouchableOpacity>
-        </View>
+            <View style={styles.workflowCont}>
+              <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
+                <Text style={[styles.text]}>Unset</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
+                <Text style={[styles.text]}>Unset</Text>
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.workflowCont}>
-          <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
-           <Text style={[styles.text]}>Unset</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-           <Text style={[styles.text]}>Unset</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+            <View style={styles.workflowCont}>
+              <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
+                <Text style={[styles.text]}>Unset</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
+                <Text style={[styles.text]}>Unset</Text>
+              </TouchableOpacity>
+            </View>
 
-
-
-
+          </View>
         </SafeAreaView>
     );
 };
@@ -54,7 +77,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: '#0f170b',
   },
   header: {

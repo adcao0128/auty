@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput, Text, View, SafeAreaView, StyleSheet, TouchableOpacity, NativeModules } from 'react-native';
+import { TextInput, Text, View, SafeAreaView, StyleSheet, TouchableOpacity, NativeModules } from 'react-native'
+import * as Keychain from 'react-native-keychain';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 import CheckBox from '@react-native-community/checkbox';
@@ -64,6 +65,7 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
         const authenticationResult: string = await UserAuthenticationModule.authenticateUser(email, password);
         
         if (authenticationResult === "User authenticated") {
+          await Keychain.setGenericPassword(email, password);
           navigation.navigate("Home");
           if (rememberMe) {
             storeUserEmail(email)

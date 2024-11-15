@@ -1,5 +1,6 @@
-import React, {useState, useEffect } from 'react';
-import { Text, SafeAreaView, TouchableOpacity, StyleSheet, NativeModules } from 'react-native';
+import React, {useCallback, useState, useEffect } from 'react';
+import { Text, SafeAreaView, TouchableOpacity, StyleSheet, NativeModules, BackHandler } from 'react-native';
+import * as Keychain from 'react-native-keychain';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 
@@ -20,6 +21,11 @@ const WorkflowModule = AppletModule as AppletModule;
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
     const [applet, setApplet] = useState('');
 
+    const handleBackPress = useCallback(() => {
+        logout();  // Trigger logout and navigate to the login screen
+        return true; // Return true to prevent default back button behavior
+      }, []);
+
     useEffect(() => {
         const fetchApplets = async () => {
           try {
@@ -35,7 +41,23 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           }
         };
         fetchApplets();
+
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+        };
       }, []);
+
+    const logout = async () => {
+        try {
+          await Keychain.resetGenericPassword();
+          navigation.navigate('Welcome')
+          console.log("Logged Out");
+        } catch (error) {
+          console.error('Error during logout', error);
+        }
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -51,7 +73,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 <Text style={styles.text}>Notification Log</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Welcome')}>
+            <TouchableOpacity style={styles.button} onPress={logout}>
                 <Text style={styles.text}>Logout</Text>
             </TouchableOpacity>
         </SafeAreaView>
