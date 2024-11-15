@@ -21,7 +21,10 @@ class AppletModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun initializeApplets(promise: Promise) {
         try {
-            val context: Context = reactApplicationContext.applicationContext
+            val context = reactApplicationContext.currentActivity ?: run {
+                promise.reject("ACTIVITY_NOT_FOUND", "No active activity context available")
+                return
+            }
             notificationApplet = NotificationApplet(context)
             batteryApplet = BatteryApplet(context, notificationApplet)
             promise.resolve("Applets initialized")
