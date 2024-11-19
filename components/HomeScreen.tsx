@@ -66,7 +66,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RegisterWorkflow')}>
-                <Text style={styles.text}>RegisterWorkflow</Text>
+                <Text style={styles.text}>Register Workflow</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('NotificationLog')}>

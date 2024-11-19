@@ -41,30 +41,39 @@ const AccountScreen : React.FC<Props> = ({ navigation }) => {
               <Text style={styles.text}>Account Information for {email}</Text>
             </View>
 
-            <View style={styles.workflowCont}>
+            <View style={[styles.workflowCont, styles.first]}>
               <TouchableOpacity style={[styles.button]} onPress={() => navigation.navigate('Account')}>
                 <Text style={styles.text}>Set</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
+                <Text style={[styles.text]}>-</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.workflowCont}>
               <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
+                <Text style={[styles.text]}>-</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
+                <Text style={[styles.text]}>-</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.workflowCont}>
               <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
+                <Text style={[styles.text]}>-</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
+                <Text style={[styles.text]}>-</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.workflowCont}>
+              <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
+                <Text style={[styles.text]}>-</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
+                <Text style={[styles.text]}>-</Text>
               </TouchableOpacity>
             </View>
 
@@ -79,6 +88,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#0f170b',
+  },
+  first: {
+    marginTop: 30,
   },
   header: {
     alignItems: 'center',

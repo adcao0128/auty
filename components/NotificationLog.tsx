@@ -15,12 +15,7 @@ const NotificationLogScreen : React.FC<Props> = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
 
        <View style={styles.logCont}>
-         <Text style={[styles.notiText]}>Type: Text ---------------------</Text>
-         <Text style={[styles.notiText]}>Type: Text ---------------------</Text>
-         <Text style={[styles.notiText]}>Type: Text ---------------------</Text>
-         <Text style={[styles.notiText]}>Type: Text ---------------------</Text>
-         <Text style={[styles.notiText]}>Kinda guessing the layout, but this should work</Text>
-         <Text style={[styles.notiText]}>Type: Text ---------------------</Text>
+         <Text style={[styles.notiText]}>11/19/24 - 1:11pm: Example Notification</Text>
         </View>
 
 
@@ -35,6 +30,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#0f170b',
+      
     },
     header: {
         alignItems: 'center',
@@ -47,7 +43,7 @@ const styles = StyleSheet.create({
       width: "90%",
     },
     notiText: {
-      fontSize: 18,
+      fontSize: 16,
       color: '#5BFFBD',
       marginBottom: 5,
       fontWeight: "bold",
