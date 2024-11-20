@@ -9,6 +9,8 @@ type Props = {
   navigation: RegisterWorkflowScreenNavigationProp;
 };
 
+
+/*I have the buttons set to account ATM, replace that link with the workflowcreation screen*/
 const RegisterWorkflowScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
@@ -27,18 +29,18 @@ const RegisterWorkflowScreen: React.FC<Props> = ({ navigation }) => {
 
         <View style={styles.workflowCont}>
           <TouchableOpacity style={[styles.button]} onPress={() => navigation.navigate('Account')}>
-            <Text style={styles.text}>TBD</Text>
+            <Text style={styles.text}>Wifi</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.workflowCont}>
           <TouchableOpacity style={[styles.button]} onPress={() => navigation.navigate('Account')}>
-            <Text style={styles.text}>TBD</Text>
+            <Text style={styles.text}>Music</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.workflowCont}>
           <TouchableOpacity style={[styles.button]} onPress={() => navigation.navigate('Account')}>
-            <Text style={styles.text}>TBD</Text>
+            <Text style={styles.text}>?</Text>
           </TouchableOpacity>
         </View>
       </View>

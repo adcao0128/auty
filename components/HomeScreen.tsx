@@ -10,16 +10,18 @@ type Props = {
     navigation: HomeScreenNavigationProp;
 };
 
-const { AppletModule } = NativeModules;
+const { WorkflowModule } = NativeModules;
 
-interface AppletModule {
-    initializeApplets: () => Promise<string>;
+interface WorkflowModule {
+    createWorkflowList: () => Promise<string>;
+    registerUserWorkflows: (username: string) => Promise<string>;
+    initializeDatabase: () => Promise<string>;
 }
 
-const WorkflowModule = AppletModule as AppletModule;
+const WorkflowsModule = WorkflowModule as WorkflowModule
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
-    const [applet, setApplet] = useState('');
+    const [email, setEmail] = useState('');
 
     const handleBackPress = useCallback(() => {
         logout();  // Trigger logout and navigate to the login screen
@@ -27,20 +29,26 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
       }, []);
 
     useEffect(() => {
-        const fetchApplets = async () => {
-          try {
-            const initApplet: string = await WorkflowModule.initializeApplets()
-            if (initApplet === "Applets initialized") {
-                setApplet(initApplet);
-                console.log("Applets created");
-            } else {
-                console.error('Error initializing applets');
+        const getAuthenticatedUserDetails = async () => {
+            try {
+              const credentials = await Keychain.getGenericPassword();
+              if (credentials) {
+                console.log(
+                  'Credentials successfully loaded for user ' + credentials.username
+                );
+                setEmail(credentials.username);
+                await WorkflowsModule.initializeDatabase();
+                await WorkflowsModule.createWorkflowList();
+                await WorkflowsModule.registerUserWorkflows(credentials.username);
+              } else {
+                console.log('No credentials stored');
+              }
+            } catch (error) {
+              console.error("Failed to access Keychain", error);
             }
-          } catch (error) {
-            console.error('Error fetching applets', error);
-          }
-        };
-        fetchApplets();
+          };
+    
+        getAuthenticatedUserDetails();
 
         BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
@@ -66,7 +74,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RegisterWorkflow')}>
-                <Text style={styles.text}>RegisterWorkflow</Text>
+                <Text style={styles.text}>Register Workflow</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('NotificationLog')}>

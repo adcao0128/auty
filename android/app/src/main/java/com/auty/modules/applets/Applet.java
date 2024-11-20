@@ -1,11 +1,10 @@
-package com.auty.modules;
+package com.auty.modules.applets;
 
-import android.content.Context;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Applet {
 
@@ -13,6 +12,7 @@ public abstract class Applet {
 
     public Applet(String appName, Object config){
         this.appName = appName;
+        Log.d("App","Applet constructor");
     }
 
     public ArrayList<String> listFunctionality(){

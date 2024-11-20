@@ -1,8 +1,5 @@
-package com.auty.modules;
+package com.auty.modules.models;
 
-import androidx.annotation.Nullable;
-
-import org.bson.Document;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
@@ -10,7 +7,7 @@ public class User {
     public String username;
     public String password;
 
-    public User(String username, String password, String passwordRepeat) throws Exception {
+    public User(String username, String password, String  passwordRepeat) throws Exception {
         this.username = username;
 
         if (password.equals(passwordRepeat)) {
