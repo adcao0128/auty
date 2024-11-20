@@ -1,7 +1,7 @@
 package com.auty
 
-import com.auty.AppletPackage
 import com.auty.UserAuthenticationPackage
+import com.auty.WorkflowPackage
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -23,7 +23,7 @@ class MainApplication : Application(), ReactApplication {
               // Packages that cannot be autolinked yet can be added manually here, for example:
               // add(MyReactNativePackage())
               add(UserAuthenticationPackage())
-              add(AppletPackage())
+              add(WorkflowPackage())
             }
 
         override fun getJSMainModuleName(): String = "index"

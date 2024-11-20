@@ -1,6 +1,8 @@
 package com.auty.modules
 
-import com.auty.modules.UserModel
+import com.auty.modules.models.UserModel
+import com.auty.modules.models.User
+import com.auty.modules.models.DatabaseInit
 import com.auty.UserAuthenticationPackage
 
 import android.content.Context
@@ -11,6 +13,7 @@ import com.facebook.react.bridge.Promise
 
 class UserAuthModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
     private lateinit var userModel: UserModel
+    private lateinit var databaseInit: DatabaseInit
 
     override fun getName(): String {
         return "UserAuthModule"
@@ -19,8 +22,12 @@ class UserAuthModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     @ReactMethod
     fun initializeDatabase(promise: Promise) {
         try {
-            val context: Context = reactApplicationContext.applicationContext
-            userModel = UserModel(context)
+            val context = reactApplicationContext.currentActivity ?: run {
+                promise.reject("ACTIVITY_NOT_FOUND", "No active activity context available")
+                return
+            }
+            databaseInit = DatabaseInit(context)
+            userModel = UserModel(databaseInit)
             promise.resolve("Database initialized")
         } catch (e: Exception) {
             promise.reject("DB_ERROR", "Error initializing the database", e)
@@ -54,6 +61,20 @@ class UserAuthModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             }
         } catch (e: Exception) {
             promise.reject("DB_ERROR", "Error authenticating user", e)
+        }
+    }
+    
+    @ReactMethod
+    fun getUserID(username: String, promise: Promise) {
+        try {
+            val userID: Int? = userModel.getUserID(username)
+            if (userID != null) {
+                promise.resolve(userID)
+            } else {
+                promise.reject("USER_NOT_FOUND", "User not found")
+            }
+        } catch (e: Exception) {
+            promise.reject("DATABASE_ERROR", "Failed to retrieve user ID", e)
         }
     }
 }
