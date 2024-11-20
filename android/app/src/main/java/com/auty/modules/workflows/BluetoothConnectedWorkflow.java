@@ -48,13 +48,10 @@ public class BluetoothConnectedWorkflow extends Workflow {
     public void handle(@Nullable Intent intent) {
         if (intent != null) {
             if (this.app.isConnected(intent)) {
-                this.response.respond( "Bluetooth device is connected");
+                this.response.respond("Bluetooth device is connected");
             } else {
                 this.response.respond("Bluetooth device is disconnected");
             }
         }
     }
-
-
-
 }
