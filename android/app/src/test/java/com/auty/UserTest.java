@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.auty.modules.User;
+import com.auty.modules.models.User;
 
 public class UserTest {
 
