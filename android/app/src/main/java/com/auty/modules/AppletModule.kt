@@ -17,6 +17,8 @@ class AppletModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private lateinit var wifiApplet: WifiApplet
     private lateinit var bluetoothApplet: BluetoothApplet
     private lateinit var notificationApplet: NotificationApplet
+//    private lateinit var musicApplet: MusicApplet
+    private var musicApplet: MusicApplet? = null
 
     override fun getName(): String {
         return "AppletModule"
@@ -33,6 +35,7 @@ class AppletModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             wifiApplet = WifiApplet(context, notificationApplet)
             bluetoothApplet = BluetoothApplet(context, notificationApplet)
             batteryApplet = BatteryApplet(context, notificationApplet)
+            musicApplet = MusicApplet(context)
             promise.resolve("Applets initialized")
         } catch (e: Exception) {
             promise.reject("APPLET_ERROR", "Error initializing applets", e)

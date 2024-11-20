@@ -18,7 +18,6 @@ public class BluetoothApplet extends Applet {
 
     private NotificationApplet notificationApplet;
     private Context context;
-    public boolean isConnected = false;
 
 
 
@@ -60,10 +59,11 @@ public class BluetoothApplet extends Applet {
             String action = intent.getAction();
 
             if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)){
-                bluetoothApplet.notificationApplet.sendNotification("Bluetooth", "Connected", "Bluetooth is connected");
+
+                bluetoothApplet.notificationApplet.sendNotification("Auty", "Bluetooth", "Bluetooth is connected");
             }
             else if(BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)){
-                bluetoothApplet.notificationApplet.sendNotification("Bluetooth", "Disconnected", "Bluetooth is disconnected");
+                bluetoothApplet.notificationApplet.sendNotification("Auty", "Bluetooth", "Bluetooth is disconnected");
             }
 
 

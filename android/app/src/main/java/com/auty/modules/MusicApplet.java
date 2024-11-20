@@ -8,6 +8,17 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 
 public class MusicApplet extends BroadcastReceiver {
+
+    private Context context;
+
+
+    public MusicApplet(Context context) {
+        this.context = context;
+        registerMusicReceiver(context);
+    }
+
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -16,12 +27,12 @@ public class MusicApplet extends BroadcastReceiver {
             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
             if (device != null) {
-                launchYouTubeMusic(context);
+                launchMusic(context);
             }
         }
     }
 
-    private void launchYouTubeMusic(Context context) {
+    private void launchMusic(Context context) {
         PackageManager packageManager = context.getPackageManager();
         Intent launchIntent = packageManager.getLaunchIntentForPackage("com.google.android.apps.youtube.music");
 
@@ -31,8 +42,9 @@ public class MusicApplet extends BroadcastReceiver {
         }
     }
 
-    public void registerReceiver(Context context) {
+    public void registerMusicReceiver(Context context) {
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
+        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
         context.registerReceiver(this, filter);
     }
 
