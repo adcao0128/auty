@@ -91,7 +91,7 @@ public class NotificationApplet extends Applet{
             return ContextCompat.checkSelfPermission(this.context, android.Manifest.permission.POST_NOTIFICATIONS)
                     == PackageManager.PERMISSION_GRANTED;
         }
-        return true;  // Permission is automatically granted on older Android versions
+        return true;
     }
 
 

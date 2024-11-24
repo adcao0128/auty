@@ -21,17 +21,22 @@ public class MusicApplet extends Applet {
 
     public void launchMusic() {
 
+        //intent for apps that identify as music apps
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_APP_MUSIC);
 
 
+
+        //intent looks for apps that handles audio files
         Intent alternateIntent = new Intent(Intent.ACTION_VIEW);
         alternateIntent.setType("audio/*");
 
 
+        //gathers list of music apps
         List<ResolveInfo> musicApps = new ArrayList<>();
 
 
+        //queries list for apps that can handle intent
         List<ResolveInfo> mainMusicApps = context.getPackageManager()
                 .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         musicApps.addAll(mainMusicApps);
