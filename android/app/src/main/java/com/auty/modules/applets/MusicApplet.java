@@ -10,6 +10,9 @@ import android.content.pm.ResolveInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//applet that opens up music apps on your phone
+//two functions launchMusic and containsPackage
 public class MusicApplet extends Applet {
 
     private Context context;
@@ -71,4 +74,5 @@ public class MusicApplet extends Applet {
         }
         return false;
     }
+
 }
