@@ -48,7 +48,7 @@ public class MusicWorkflow extends Workflow {
         WorkflowConfig workflowConfig = new WorkflowConfig(this.workflowName, Boolean.FALSE);
         workflowModel.updateWorkflow(workflowConfig, user_id);
         Log.d("AUTY",String.format("Unregistered %s workflow", this.workflowName));
-        context.unregisterReceiver(musicTrigger);
+        context.unregisterReceiver(this.musicTrigger);
     }
 
     @Override

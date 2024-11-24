@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, Text, TouchableOpacity, SafeAreaView, StyleSheet, NativeModules } from 'react-native';
+import * as Keychain from 'react-native-keychain';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 
@@ -30,6 +31,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
       const dbResult: string = await UserAuthenticationModule.initializeDatabase();
       const authenticationResult: string = await UserAuthenticationModule.addUser(username, password, confirmPassword);
       if (authenticationResult == "User registered successfully") {
+        await Keychain.setGenericPassword(username, password);
         navigation.navigate("Home");
       } else {
         const errors: { [key: string]: string } = {};

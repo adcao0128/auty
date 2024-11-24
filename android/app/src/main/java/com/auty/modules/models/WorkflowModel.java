@@ -148,6 +148,6 @@ public class WorkflowModel {
         int w_id = db.update(TABLE_WORKFLOWS, values, String.format("%s = ? AND %s = ?", KEY_WF_NAME, KEY_USER_ID),
                 new String[] {String.valueOf(workflowConfig.getWorkflowName()), String.valueOf(user_id)});
         db.close();
-        return  w_id;
+        return w_id;
     }
 }

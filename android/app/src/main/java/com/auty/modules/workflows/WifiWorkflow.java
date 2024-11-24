@@ -48,8 +48,8 @@ public class WifiWorkflow extends Workflow {
     public void unregisterReceiver(WorkflowModel workflowModel, int user_id) {
         WorkflowConfig workflowConfig = new WorkflowConfig(this.workflowName, Boolean.FALSE);
         workflowModel.updateWorkflow(workflowConfig, user_id);
-        Log.d("AUTY",String.format("Unregistered %s workflow", this.workflowName));
-        context.unregisterReceiver(wifiTrigger);
+        Log.d("AUTY",String.format("Unregistered %s receiver", this.workflowName));
+        context.unregisterReceiver(this.wifiTrigger);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class BatteryLowWorkflow extends  Workflow{
         WorkflowConfig workflowConfig = new WorkflowConfig(this.workflowName, Boolean.FALSE);
         workflowModel.updateWorkflow(workflowConfig, user_id);
         Log.d("AUTY",String.format("Unregistered %s workflow", this.workflowName));
-        context.unregisterReceiver(batteryTrigger);
+        context.unregisterReceiver(this.batteryTrigger);
     }
 
     @Override
