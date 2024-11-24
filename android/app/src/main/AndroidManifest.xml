@@ -19,7 +19,10 @@
     <uses-permission
         android:name="android.permission.BATTERY_STATS"
         tools:ignore="ProtectedPermissions" />
-
+        
+    <queries>
+        <package android:name="com.google.android.apps.youtube.music" />
+    </queries>
 
     <application
       android:name=".MainApplication"

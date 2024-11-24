@@ -3,14 +3,17 @@ package com.auty.modules
 import android.util.Log
 
 import com.auty.modules.responses.NotificationResponse
+import com.auty.modules.responses.MusicResponse
 import com.auty.modules.applets.BatteryApplet
 import com.auty.modules.applets.WifiApplet
 import com.auty.modules.applets.BluetoothApplet
 import com.auty.modules.applets.NotificationApplet
+import com.auty.modules.applets.MusicApplet
 import com.auty.modules.workflows.WifiWorkflow
 import com.auty.modules.workflows.BatteryPluggedInWorkflow
 import com.auty.modules.workflows.BatteryLowWorkflow
 import com.auty.modules.workflows.BluetoothConnectedWorkflow
+import com.auty.modules.workflows.MusicWorkflow
 import com.auty.modules.workflows.Workflow
 import com.auty.modules.models.WorkflowModel
 import com.auty.modules.models.UserModel
@@ -65,12 +68,14 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             val batteryLowResponse = NotificationResponse(context, "batteryLowResponse")
             val wifiConnectedResponse = NotificationResponse(context, "wifiConnectedResponse")
             val bluetoothConnectedResponse = NotificationResponse(context, "bluetoothConnectedResponse")
+            val musicResponse = MusicResponse(context, "musicResponse")
     
             // Initialize applets
             Log.d("WorkflowModule", "Initializing Applets")
             val batteryApplet = BatteryApplet()
             val bluetoothApplet = BluetoothApplet(context)
             val wifiApplet = WifiApplet(context)
+            val musicApplet = MusicApplet(context)
     
             // Create workflows
             Log.d("WorkflowModule", "Creating Workflows")
@@ -78,11 +83,12 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             val batteryPluggedInWorkflow = BatteryPluggedInWorkflow(context, batteryApplet, batteryChargingResponse)
             val batteryLowWorkflow = BatteryLowWorkflow(context, batteryApplet, batteryLowResponse)
             val bluetoothConnectedWorkflow = BluetoothConnectedWorkflow(context, bluetoothApplet, bluetoothConnectedResponse)
+            val musicWorkflow = MusicWorkflow(context, musicApplet, musicResponse)
     
             // Add workflows to the list
             Log.d("WorkflowModule", "Adding Workflows to List")
             workflows.clear() // Clear existing workflows before adding new ones
-            workflows.addAll(listOf(wifiWorkflow, batteryPluggedInWorkflow, batteryLowWorkflow, bluetoothConnectedWorkflow))
+            workflows.addAll(listOf(wifiWorkflow, batteryPluggedInWorkflow, batteryLowWorkflow, bluetoothConnectedWorkflow, musicWorkflow))
     
             Log.d("WorkflowModule", "Workflows created successfully")
             promise.resolve("Workflows created successfully")
@@ -100,7 +106,7 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             val userID = getUserID(loggedInUser)
 
             Log.d("WorkflowModule", "Adding all workflows")
-            workflows.take(3).forEach { workflow ->
+            workflows.forEach { workflow ->
                 addWorkflows(userID, workflow)
             }
 
