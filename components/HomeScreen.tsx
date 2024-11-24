@@ -13,7 +13,7 @@ type Props = {
 const { WorkflowModule } = NativeModules;
 
 interface WorkflowModule {
-    createWorkflowList: () => Promise<string>;
+    createWorkflowList: (username: string) => Promise<string>;
     registerUserWorkflows: (username: string) => Promise<string>;
     initializeDatabase: () => Promise<string>;
 }
@@ -38,7 +38,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 );
                 setUsername(credentials.username);
                 await WorkflowsModule.initializeDatabase();
-                await WorkflowsModule.createWorkflowList();
+                await WorkflowsModule.createWorkflowList(credentials.username);
                 await WorkflowsModule.registerUserWorkflows(credentials.username);
               } else {
                 console.log('No credentials stored');

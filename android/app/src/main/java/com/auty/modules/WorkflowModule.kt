@@ -17,6 +17,7 @@ import com.auty.modules.workflows.MusicWorkflow
 import com.auty.modules.workflows.Workflow
 import com.auty.modules.models.WorkflowModel
 import com.auty.modules.models.UserModel
+import com.auty.modules.models.NotificationModel
 import com.auty.modules.models.WorkflowConfig
 import com.auty.modules.models.DatabaseInit
 
@@ -34,6 +35,7 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     private lateinit var databaseInit: DatabaseInit
     private lateinit var workflowModel: WorkflowModel
     private lateinit var userModel: UserModel
+    private lateinit var notificationModel: NotificationModel
 
     override fun getName(): String {
         return "WorkflowModule"
@@ -49,6 +51,7 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             databaseInit = DatabaseInit(context)
             workflowModel = WorkflowModel(databaseInit)
             userModel = UserModel(databaseInit)
+            notificationModel = NotificationModel(databaseInit)
             promise.resolve("Database initialized")
         } catch (e: Exception) {
             promise.reject("DB_ERROR", "Error initializing the database", e)
@@ -56,19 +59,22 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     }
 
     @ReactMethod
-    fun createWorkflowList(promise: Promise) {
+    fun createWorkflowList(username: String, promise: Promise) {
         try {
             val context = reactApplicationContext.currentActivity ?: run {
                 promise.reject("ACTIVITY_NOT_FOUND", "No active activity context available")
                 return
             }
+
+            val userID = getUserID(username)
+
             // Initialize notification responses
             Log.d("WorkflowModule", "Initializing NotificationResponses")
-            val batteryChargingResponse = NotificationResponse(context, "batteryChargingResponse")
-            val batteryLowResponse = NotificationResponse(context, "batteryLowResponse")
-            val wifiConnectedResponse = NotificationResponse(context, "wifiConnectedResponse")
-            val bluetoothConnectedResponse = NotificationResponse(context, "bluetoothConnectedResponse")
-            val musicResponse = MusicResponse(context, "musicResponse")
+            val batteryChargingResponse = NotificationResponse(context, "batteryChargingResponse", userID, notificationModel)
+            val batteryLowResponse = NotificationResponse(context, "batteryLowResponse", userID, notificationModel)
+            val wifiConnectedResponse = NotificationResponse(context, "wifiConnectedResponse", userID, notificationModel)
+            val bluetoothConnectedResponse = NotificationResponse(context, "bluetoothConnectedResponse", userID, notificationModel)
+            val musicResponse = MusicResponse(context, "musicResponse", userID, notificationModel)
     
             // Initialize applets
             Log.d("WorkflowModule", "Initializing Applets")
@@ -118,7 +124,7 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             Log.d("WorkflowModule", "Registering Workflows")
             for ((workflow, status) in userWorkflows) {
                 if (status) {
-                    workflow.registerReceiver()
+                    workflow.registerReceiver(workflowModel, userID)
                     Log.d("AUTY", String.format("Registered: %s", workflow.workflowName))
                 }
             }
@@ -137,7 +143,7 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     // Add workflows for the user
     private fun addWorkflows(userID: Int, workflow: Workflow) {
         // You can modify this to pass an actual WorkflowConfig instance
-        val workflowConfig = WorkflowConfig(workflow.getWorkflowName(), true) // Assuming 'true' is the default status
+        val workflowConfig = WorkflowConfig(workflow.getWorkflowName(), workflow.isActive()) // Assuming 'true' is the default status
         if (!workflowModel.addWorkflow(workflowConfig, userID)) {
             Log.d("AUTY", "Workflow already exists: $workflow.getWorkflowName()")
         }

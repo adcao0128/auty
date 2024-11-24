@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.auty.modules.applets.Applet;
 import com.auty.modules.responses.AbstractResponse;
+import com.auty.modules.models.WorkflowModel;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,8 @@ public abstract class Workflow {
         this.isActive = false;
     }
 
-    public abstract void registerReceiver();
+    public abstract void registerReceiver(WorkflowModel workflowModel, int user_id);
+    public abstract void unregisterReceiver(WorkflowModel workflowModel, int user_id);
     public abstract void handle(@Nullable Intent intent);
 
     public String[] getConfig() {

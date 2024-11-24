@@ -13,6 +13,8 @@ import com.auty.modules.applets.BluetoothApplet;
 import com.auty.modules.responses.AbstractResponse;
 import com.auty.modules.responses.NotificationResponse;
 import com.auty.modules.triggers.BluetoothTrigger;
+import com.auty.modules.models.WorkflowConfig;
+import com.auty.modules.models.WorkflowModel;
 
 public class BluetoothConnectedWorkflow extends Workflow {
 
@@ -28,20 +30,28 @@ public class BluetoothConnectedWorkflow extends Workflow {
         this.context = context;
         this.response = (NotificationResponse) response;
         this.app = (BluetoothApplet) applet;
-
-//        this.registerReceiver();
     }
 
     @Override
-    public void registerReceiver(){
+    public void registerReceiver(WorkflowModel workflowModel, int user_id) {
+        WorkflowConfig workflowConfig = new WorkflowConfig(this.workflowName, Boolean.TRUE);
+        workflowModel.updateWorkflow(workflowConfig, user_id);
+        Log.d("AUTY",String.format("Registered %s workflow", this.workflowName));
         this.bluetoothTrigger = new BluetoothTrigger(this);
-//        BluetoothApplet.BluetoothStatusReceiver receiver = new BluetoothApplet.BluetoothStatusReceiver(this);
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
         this.context.registerReceiver(this.bluetoothTrigger, filter);
         Log.d("Applet", "Registering bluetooth status receiver");
+    }
+
+    @Override
+    public void unregisterReceiver(WorkflowModel workflowModel, int user_id) {
+        WorkflowConfig workflowConfig = new WorkflowConfig(this.workflowName, Boolean.FALSE);
+        workflowModel.updateWorkflow(workflowConfig, user_id);
+        Log.d("AUTY",String.format("Unregistered %s workflow", this.workflowName));
+        context.unregisterReceiver(bluetoothTrigger);
     }
 
     @Override
