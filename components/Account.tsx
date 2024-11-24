@@ -11,7 +11,7 @@ type Props = {
 };
 
 const AccountScreen : React.FC<Props> = ({ navigation }) => {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
 
     useEffect(() => {
       const getAuthenticatedUserDetails = async () => {
@@ -21,7 +21,7 @@ const AccountScreen : React.FC<Props> = ({ navigation }) => {
             console.log(
               'Credentials successfully loaded for user ' + credentials.username
             );
-            setEmail(credentials.username);
+            setUsername(credentials.username);
           } else {
             console.log('No credentials stored');
           }
@@ -38,7 +38,7 @@ const AccountScreen : React.FC<Props> = ({ navigation }) => {
           <View>
 
             <View>
-              <Text style={styles.text}>Account Information for {email}</Text>
+              <Text style={styles.text}>Account Information for {username}</Text>
             </View>
 
             <View style={[styles.workflowCont, styles.first]}>

@@ -5,11 +5,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App.tsx';
 import CheckBox from '@react-native-community/checkbox';
 import {
-  clearUserEmail,
+  clearUsername,
   getCheckStatus,
-  getUserEmail,
+  getUsername,
   storeCheckStatus,
-  storeUserEmail,
+  storeUsername,
 } from './RememberMe';
 
 const { UserAuthModule } = NativeModules;
@@ -29,7 +29,7 @@ export type Props = {
 
 
 const LoginScreen : React.FC<Props> = ({ navigation }) => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [errors, setErrors] = useState({});
@@ -37,18 +37,18 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
     useEffect(() => {
       const fetchValuesFromStorage = async () => {
         try {
-          const emailValue = await getUserEmail();
+          const usernameValue = await getUsername();
           const checkValue = await getCheckStatus();
           console.log('got status value:', checkValue);
-          console.log('got email value:', emailValue);
+          console.log('got username value:', usernameValue);
           if (checkValue) {
             setRememberMe(checkValue.rememberMeValue);
-            if (emailValue) {
-              setEmail(emailValue.emailValue)
+            if (usernameValue) {
+              setUsername(usernameValue.usernameValue)
             }
           }
         } catch (error) {
-          console.error('Error fetching checkValue or email:', error);
+          console.error('Error fetching checkValue or username:', error);
         }
       };
       fetchValuesFromStorage();
@@ -62,15 +62,15 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
     const handleSignIn = async () => {
       try {
         const dbResult: string = await UserAuthenticationModule.initializeDatabase();
-        const authenticationResult: string = await UserAuthenticationModule.authenticateUser(email, password);
+        const authenticationResult: string = await UserAuthenticationModule.authenticateUser(username, password);
         
         if (authenticationResult === "User authenticated") {
-          await Keychain.setGenericPassword(email, password);
+          await Keychain.setGenericPassword(username, password);
           navigation.navigate("Home");
           if (rememberMe) {
-            storeUserEmail(email)
+            storeUsername(username)
           } else {
-            clearUserEmail()
+            clearUsername()
           }
 
         } else {
@@ -91,10 +91,10 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
           <TextInput
             style={styles.textInput}
-            placeholder="Email"
+            placeholder="Username"
             placeholderTextColor={'#5BFFBD'}
-            onChangeText={text => setEmail(text)}
-            value={email}
+            onChangeText={text => setUsername(text)}
+            value={username}
           />
           <TextInput
             style={styles.textInput}

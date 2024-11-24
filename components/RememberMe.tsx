@@ -1,31 +1,31 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const storeUserEmail = async (email: string): Promise<void> => {
+const storeUsername = async (username: string): Promise<void> => {
   try {
-    await AsyncStorage.setItem('email', JSON.stringify(email));
-    console.log('email stored for remember me');
+    await AsyncStorage.setItem('username', JSON.stringify(username));
+    console.log('username stored for remember me');
   } catch (error) {
-    console.error('Error storing email for remember me:', error);
+    console.error('Error storing username for remember me:', error);
   }
 };
 
-const getUserEmail = async (): Promise<{ emailValue: string } | null> => {
+const getUsername = async (): Promise<{ usernameValue: string } | null> => {
   try {
-    const emailValue = JSON.parse(await AsyncStorage.getItem('email') || 'null');
-    console.log('getting email for the remember me', emailValue);
-    return emailValue !== null ? {emailValue} : {emailValue: ''};
+    const usernameValue = JSON.parse(await AsyncStorage.getItem('username') || 'null');
+    console.log('getting username for the remember me', usernameValue);
+    return usernameValue !== null ? {usernameValue} : {usernameValue: ''};
   } catch (error) {
-    console.error('Error getting stored email for remember me:', error);
+    console.error('Error getting stored username for remember me:', error);
     return null;
   }
 };
 
-const clearUserEmail = async () => {
+const clearUsername = async () => {
   try {
-    await AsyncStorage.removeItem('email');
-    console.log('Email cleared from AsyncStorage');
+    await AsyncStorage.removeItem('username');
+    console.log('Username cleared from AsyncStorage');
   } catch (error) {
-    console.error('Error clearing email from AsyncStorage:', error);
+    console.error('Error clearing username from AsyncStorage:', error);
   }
 };
 
@@ -50,9 +50,9 @@ const getCheckStatus = async (): Promise<{ rememberMeValue: boolean } | null> =>
 };
 
 export {
-  clearUserEmail,
+  clearUsername,
   getCheckStatus,
-  getUserEmail,
+  getUsername,
   storeCheckStatus,
-  storeUserEmail,
+  storeUsername,
 };

@@ -20,7 +20,7 @@ const UserAuthenticationModule = UserAuthModule as UserAuthenticationModuleInter
 
 const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -28,7 +28,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   const handleRegister = async () => {
     try {
       const dbResult: string = await UserAuthenticationModule.initializeDatabase();
-      const authenticationResult: string = await UserAuthenticationModule.addUser(email, password, confirmPassword);
+      const authenticationResult: string = await UserAuthenticationModule.addUser(username, password, confirmPassword);
       if (authenticationResult == "User registered successfully") {
         navigation.navigate("Home");
       } else {
@@ -47,9 +47,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <TextInput style={styles.textInput}
-        placeholder="Email"
+        placeholder="Username"
         placeholderTextColor={'#5BFFBD'}
-        onChangeText={text => setEmail(text)}
+        onChangeText={text => setUsername(text)}
       />
       <TextInput style={styles.textInput}
         placeholder="Password"

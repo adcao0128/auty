@@ -21,7 +21,7 @@ interface WorkflowModule {
 const WorkflowsModule = WorkflowModule as WorkflowModule
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
 
     const handleBackPress = useCallback(() => {
         logout();  // Trigger logout and navigate to the login screen
@@ -36,7 +36,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 console.log(
                   'Credentials successfully loaded for user ' + credentials.username
                 );
-                setEmail(credentials.username);
+                setUsername(credentials.username);
                 await WorkflowsModule.initializeDatabase();
                 await WorkflowsModule.createWorkflowList();
                 await WorkflowsModule.registerUserWorkflows(credentials.username);
