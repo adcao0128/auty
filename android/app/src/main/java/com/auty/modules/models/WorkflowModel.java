@@ -72,18 +72,12 @@ public class WorkflowModel {
         }
 
         int workflowNameIndex = cursor.getColumnIndex(KEY_WF_NAME);
-//        int triggerNameIndex = cursor.getColumnIndex(KEY_T_NAME);
-//        int responseNameIndex = cursor.getColumnIndex(KEY_R_NAME);
-//        int responseIndex = cursor.getColumnIndex(KEY_RESPONSE);
         int statusIndex = cursor.getColumnIndex(KEY_STATUS);
 
 
         WorkflowConfig workflowConfig = new WorkflowConfig(
                 cursor.getString(workflowNameIndex),
-//                cursor.getString(triggerNameIndex),
-//                cursor.getString(responseNameIndex),
                 cursor.getInt(statusIndex) == 1
-//                cursor.getString(responseIndex)
         );
 
         cursor.close();
@@ -137,7 +131,6 @@ public class WorkflowModel {
                 WorkflowConfig workflow = new WorkflowConfig();
                 workflow.setWorkflowName(cursor.getString(cursor.getColumnIndex(KEY_WF_NAME)));
                 workflow.setStatus(cursor.getInt(cursor.getColumnIndex(KEY_STATUS)) == 1);
-//                workflow.setUserId(cursor.getLong(cursor.getColumnIndex(KEY_USER_ID)));
                 workflowConfigMapping.put(workflow.getWorkflowName(), workflow.getStatus());
             } while (cursor.moveToNext());
         }
@@ -145,5 +138,16 @@ public class WorkflowModel {
         cursor.close();
 
         return workflowConfigMapping;
+    }
+
+    public int updateWorkflow(WorkflowConfig workflowConfig, int user_id) {
+        SQLiteDatabase db = this.dbInit.getDB();
+        ContentValues values = new ContentValues();
+        values.put(KEY_WF_NAME, workflowConfig.getWorkflowName());
+        values.put(KEY_STATUS, workflowConfig.getStatus());
+        int w_id = db.update(TABLE_WORKFLOWS, values, String.format("%s = ? AND %s = ?", KEY_WF_NAME, KEY_USER_ID),
+                new String[] {String.valueOf(workflowConfig.getWorkflowName()), String.valueOf(user_id)});
+        db.close();
+        return w_id;
     }
 }

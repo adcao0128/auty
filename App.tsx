@@ -10,7 +10,6 @@ import RegisterScreen from './components/RegisterScreen.tsx';
 import HomeScreen from './components/HomeScreen.tsx';
 import AccountScreen from './components/Account.tsx';
 import NotificationLogScreen from './components/NotificationLog.tsx';
-import RegisterWorkflowScreen from './components/RegisterWorkflow.tsx';
 
 import { enableScreens } from 'react-native-screens';
 
@@ -87,18 +86,6 @@ function App(): React.JSX.Element {
           },
         }}/>
         <Stack.Screen name="NotificationLog" component={NotificationLogScreen} options={
-          { 
-          headerStyle: {
-            backgroundColor: '#000000',
-          },
-          headerTintColor: '#5BFFBD',
-          headerTitleAlign: "center",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 30,
-          },
-        }}/>
-        <Stack.Screen name="RegisterWorkflow" component={RegisterWorkflowScreen} options={
           { 
           headerStyle: {
             backgroundColor: '#000000',
