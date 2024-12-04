@@ -51,8 +51,8 @@ public class DatabaseInit  extends SQLiteOpenHelper {
             , TABLE_NOTIFICATIONS, KEY_NOTIFICATION_ID, KEY_NOTIFICATION_TEXT, KEY_USER_ID, KEY_USER_ID, TABLE_USERS, KEY_USER_ID
     );
 
-    public DatabaseInit(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public DatabaseInit(@Nullable Context context, String dbName) {
+        super(context, dbName != null ? dbName : DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

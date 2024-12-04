@@ -49,7 +49,7 @@ class WorkflowModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
                 promise.reject("ACTIVITY_NOT_FOUND", "No active activity context available")
                 return
             }
-            databaseInit = DatabaseInit(context)
+            databaseInit = DatabaseInit(context, null)
             workflowModel = WorkflowModel(databaseInit)
             userModel = UserModel(databaseInit)
             notificationModel = NotificationModel(databaseInit)
