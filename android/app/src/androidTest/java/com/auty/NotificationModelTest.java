@@ -69,8 +69,8 @@ public class NotificationModelTest {
 
         String response = "testResponse";
         boolean status = notificationModel.addNotification(response, user_id);
-        // should be assertTrue, changed for CI testing purpose
-        assertFalse(status);
+
+        assertTrue(status);
     }
 
     @Test
