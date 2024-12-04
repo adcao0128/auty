@@ -94,6 +94,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+   
+    env:
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+      ANDROID_HOME: /usr/local/lib/android/sdk
+
     steps:
       - name: checkout
         uses: actions/checkout@v4
