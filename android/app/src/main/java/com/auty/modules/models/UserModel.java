@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class UserModel {
-
-
     private static final String TABLE_USERS = "users";
     private static final String KEY_ID = "id";
     private static final String KEY_USERNAME = "username";

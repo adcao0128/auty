@@ -76,6 +76,17 @@ public class DatabaseInit  extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void dropDB(SQLiteDatabase db) {
+        String DROP_USERS_TABLE = String.format("DROP TABLE IF EXISTS %s", TABLE_USERS);
+        db.execSQL(DROP_USERS_TABLE);
+
+        String DROP_WORKFLOWS_TABLE = String.format("DROP TABLE IF EXISTS %s", TABLE_WORKFLOWS);
+        db.execSQL(DROP_WORKFLOWS_TABLE);
+
+        String DROP_NOTIFICATIONS_TABLE = String.format("DROP TABLE IF EXISTS %s", TABLE_NOTIFICATIONS);
+        db.execSQL(DROP_NOTIFICATIONS_TABLE);
+    }
+
     public SQLiteDatabase getDB(){
         return this.getWritableDatabase();
     }
