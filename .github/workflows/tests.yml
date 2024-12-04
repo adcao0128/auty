@@ -14,6 +14,7 @@ jobs:
       ANDROID_HOME: /usr/local/lib/android/sdk
 
     steps:
+      
       - uses: ReactiveCircus/android-emulator-runner@v1
         with:
           api-level: 35  # Specify the desired Android version
