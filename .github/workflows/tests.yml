@@ -77,16 +77,11 @@ jobs:
           ./gradlew assembleDebug
       
       - name: Run Android-specific tests
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: ReactiveCircus/android-emulator-runner@v1
         with:
-          api-level: 35
-          script: cd android; ./gradlew connectedCheck
-
-      - name
-        run: |
-          cd android
-          ./gradlew connectedAndroidTest
- 
+          api-level: 35  # Specify the desired Android version
+          emulator-image: "Pixel 5"  # Select the emulator device
+          script: cd android; /gradlew connectedAndroidTest
 
       - name: Upload test results
         if: always()
