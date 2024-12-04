@@ -160,11 +160,7 @@ jobs:
           arch: x86_64
           profile: Nexus 4
           emulator-options: -no-window -no-boot-anim -no-audio -no-snapshot-load
-          script: |
-            cd android;
-            ls;
-            chmod +x gradlew;
-            ./gradlew connectedAndroidTest --continue
+          script: chmod +x test.sh; ./test.sh
 
       - name: Upload Test Reports
         if: failure()
