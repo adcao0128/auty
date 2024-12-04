@@ -162,6 +162,7 @@ jobs:
           emulator-options: -no-window -no-boot-anim -no-audio -no-snapshot-load
           script: |
             chmod +x android/gradlew
+            ls android/
             android/gradlew connectedAndroidTest --continue
 
       - name: Upload Test Reports
