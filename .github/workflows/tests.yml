@@ -161,10 +161,8 @@ jobs:
           profile: Nexus 4
           emulator-options: -no-window -no-boot-anim -no-audio -no-snapshot-load
           script: |
-            cd android
-            ls
-            chmod +x ./gradlew
-            ./gradlew connectedAndroidTest --continue
+            chmod +x android/gradlew
+            android/gradlew connectedAndroidTest --continue
 
       - name: Upload Test Reports
         if: failure()
