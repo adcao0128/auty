@@ -61,7 +61,6 @@ public class DatabaseInit  extends SQLiteOpenHelper {
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_NOTIFICATION_TABLE);
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String DROP_USERS_TABLE = String.format("DROP TABLE IF EXISTS %s", TABLE_USERS);
