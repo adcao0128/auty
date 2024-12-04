@@ -75,7 +75,6 @@ jobs:
         uses: ReactiveCircus/android-emulator-runner@v1
         with:
           api-level: 33 # Specify the desired Android version
-          emulator-image: "Pixel_4_API_33"  # Select the emulator device
           script: |
             cd android
             ./gradlew connectedAndroidTest
