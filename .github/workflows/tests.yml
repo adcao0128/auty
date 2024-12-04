@@ -146,13 +146,19 @@ jobs:
           cd android
           ./gradlew assembleDebug
 
-      # - name: Enable KVM
-      #   run: |
-      #     echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-      #     sudo udevadm control --reload-rules
-      #     sudo udevadm trigger --name-match=kvm
-
-      - name: run tests
+      - name: Run unit tests
+        run: |
+          cd android
+          ./gradlew testDebugUnitTest
+      
+      - name: Upload Unit Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: android/app/build/test-results/testDebugUnitTest
+      
+      - name: Run instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 26
@@ -162,7 +168,7 @@ jobs:
           emulator-options: -no-window -no-boot-anim -no-audio -no-snapshot-load
           script: chmod +x test.sh; ./test.sh
 
-      - name: Upload Test Reports
+      - name: Upload Instrumentation Test Reports
         if: failure()
         uses: actions/upload-artifact@v4
         with:
