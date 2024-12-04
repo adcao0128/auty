@@ -24,7 +24,12 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      
+      - name: Start ReactiveCircus
+        uses: ReactiveCircus/android-emulator-runner@v1
+        with:
+          api-level: 35  # Specify the desired Android version
+          emulator-image: "Pixel 5"  # Select the emulator device
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -78,10 +83,6 @@ jobs:
           ./gradlew assembleDebug
       
       - name: Run Android-specific tests
-        uses: ReactiveCircus/android-emulator-runner@v1
-        with:
-          api-level: 35  # Specify the desired Android version
-          emulator-image: "Pixel 5"  # Select the emulator device
         run: |
           cd android
           ./gradlew connectedAndroidTest
