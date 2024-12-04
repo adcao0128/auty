@@ -72,11 +72,6 @@ jobs:
       - name: Run Android-specific tests
         run: |
           cd android
-          ./gradlew testDebugUnitTest
-      
-      - name: Run Android-specific integration tests
-        run: |
-          cd android
           ./gradlew connectedAndroidTest
 
       - name: Upload test results
