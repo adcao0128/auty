@@ -90,6 +90,7 @@ function App(): React.JSX.Element {
           headerStyle: {
             backgroundColor: '#000000',
           },
+          headerTitle: 'Notification Log',
           headerTintColor: '#5BFFBD',
           headerTitleAlign: "center",
           headerTitleStyle: {

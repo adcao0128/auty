@@ -79,7 +79,6 @@ const LoginScreen : React.FC<Props> = ({ navigation }) => {
           setErrors(errors);
         }
       } catch (error) {
-        console.error("An error occurred:", error);
         const errors: { [key: string]: string } = {};
         errors.authenticate = 'An error occurred during authentication';
         setErrors(errors);

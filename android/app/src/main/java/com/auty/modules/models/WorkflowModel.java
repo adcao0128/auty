@@ -33,7 +33,7 @@ public class WorkflowModel {
         String workflow_name = workflowConfig.getWorkflowName();
         Boolean status = workflowConfig.getStatus();
 
-        WorkflowConfig obtainedWorkflowConfig = this.getWorkflow(workflow_name);
+        WorkflowConfig obtainedWorkflowConfig = this.getWorkflow(workflow_name, user_id);
 
         if (obtainedWorkflowConfig != null) {
             return false;
@@ -51,14 +51,14 @@ public class WorkflowModel {
         }
     }
 
-    public WorkflowConfig getWorkflow(String workflowName){
+    public WorkflowConfig getWorkflow(String workflowName, int userId){
 
         SQLiteDatabase db = this.dbInit.getDB();
 
         Cursor cursor = db.query(TABLE_WORKFLOWS,
                 new String[] {KEY_ID, KEY_WF_NAME, KEY_STATUS},
-                KEY_WF_NAME + "=?",
-                new String[] {String.valueOf(workflowName)},
+                KEY_WF_NAME + "=? AND " + KEY_USER_ID + "=?",
+                new String[]{workflowName, String.valueOf(userId)},
                 null, null, null, null
         );
 

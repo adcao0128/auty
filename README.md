@@ -4,6 +4,8 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
+To install the app dependencies, you can run ```npm install```
+
 ## Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
@@ -13,67 +15,22 @@ To start Metro, run the following command from the _root_ of your React Native p
 ```bash
 # using npm
 npm start
-
-# OR using Yarn
-yarn start
 ```
+After the Metro Server has started, press ```a``` to start the Android application. The environment should be set up as a bare native, not expo project. You should install an
+Android emulator if you need it, which can be found here [`https://reactnative.dev/docs/set-up-your-environment`]
 
-## Step 2: Start your Application
+After pressing ```a```, the app should start, and the Login Screen will show up. You should register a new user, at which point you will be directed to the
+post-login home screen. To activate the IFTTT workflow, you can go to the account page to toggle on and off specific workflows.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+A list of the workflow functionalities is below:
+BatteryLowWorkflow: To use this, you can go into the advanced controls menu of the emulator to adjust the battery level.
+BatteryPluggedInWorkflow: To use this, you can go into the advanced controls menu of the emulator to set the AC charger and status to plug in.
+BluetoothConnectedWorkflow: This workflow only works if you are using a physical Android phone.
+MusicWorkflow: This workflow only works if you are using a physical Android phone.
+WifiWorkflow: You can use the Android menus to connect to wifi to use this workflow.
 
-### For Android
+To see what workflows are being triggered, you can see the normal notifications pop up, as well as the in-app notification log that records
+triggers accross user sessions.
 
-```bash
-# using npm
-npm run android
+We fulfill the line requirement including all of the code under auty/android/app/src/main/java/come/auty.
 
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
