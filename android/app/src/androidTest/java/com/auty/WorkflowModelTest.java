@@ -106,12 +106,12 @@ public class WorkflowModelTest {
         Workflow addedWorkflow = createdWorkflows.get(1);
 
         // try to obtain workflow before adding
-        WorkflowConfig obtainedWorkflowConfig = this.workflowModel.getWorkflow(addedWorkflow.getWorkflowName());
+        WorkflowConfig obtainedWorkflowConfig = this.workflowModel.getWorkflow(addedWorkflow.getWorkflowName(), user_id);
         assertNull(obtainedWorkflowConfig);
 
         WorkflowConfig addedWorkflowConfig = new WorkflowConfig(addedWorkflow.getWorkflowName(), true);
         boolean status = this.workflowModel.addWorkflow(addedWorkflowConfig, user_id);
-        obtainedWorkflowConfig = this.workflowModel.getWorkflow(addedWorkflow.getWorkflowName());
+        obtainedWorkflowConfig = this.workflowModel.getWorkflow(addedWorkflow.getWorkflowName(), user_id);
 
         // get workflow after adding
         assertNotNull(obtainedWorkflowConfig);
