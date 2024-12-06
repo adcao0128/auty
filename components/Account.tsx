@@ -6,12 +6,26 @@ import { RootStackParamList } from '../App.tsx';
 
 type AccountScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Account'>;
 
+type WorkflowStatuses = { [workflowName: string]: boolean };
+
 type Props = {
   navigation: AccountScreenNavigationProp;
 };
 
+const { WorkflowModule } = NativeModules;
+
+interface WorkflowModule {
+    getUserWorkflows: (username: string) => Promise<WorkflowStatuses>;
+    registerWorkflow: (username: string, workflowName: string) => Promise<string>;
+    unregisterWorkflow: (username: string, workflowName: string) => Promise<string>;
+    initializeDatabase: () => Promise<string>;
+}
+
+const WorkflowsModule = WorkflowModule as WorkflowModule;
+
 const AccountScreen : React.FC<Props> = ({ navigation }) => {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [workflows, setWorkflows] = useState<WorkflowStatuses>({});
 
     useEffect(() => {
       const getAuthenticatedUserDetails = async () => {
@@ -21,7 +35,10 @@ const AccountScreen : React.FC<Props> = ({ navigation }) => {
             console.log(
               'Credentials successfully loaded for user ' + credentials.username
             );
-            setEmail(credentials.username);
+            setUsername(credentials.username);
+            await WorkflowsModule.initializeDatabase();
+            const workflows = await WorkflowsModule.getUserWorkflows(credentials.username);
+            setWorkflows(workflows);
           } else {
             console.log('No credentials stored');
           }
@@ -31,42 +48,44 @@ const AccountScreen : React.FC<Props> = ({ navigation }) => {
       };
 
       getAuthenticatedUserDetails();
-    })
+    }, [])
+
+    const handlePress = async (workflowName: string) => {
+      try {
+        const currentStatus = workflows[workflowName];
+        if (currentStatus) {
+          const result = await WorkflowsModule.unregisterWorkflow(username, workflowName);
+          console.log(result)
+        } else {
+          const result = await WorkflowsModule.registerWorkflow(username, workflowName);
+          console.log(result)
+        }
+
+        const updatedWorkflows = await WorkflowsModule.getUserWorkflows(username);
+        console.log(workflows);
+        console.log(updatedWorkflows);
+        setWorkflows(updatedWorkflows);
+      } catch (error) {
+        console.error(`Failed to ${workflows[workflowName] ? 'unregister' : 'register'} workflow`);
+      }
+    };
 
     return (
         <SafeAreaView style={styles.container}>
           <View>
 
             <View>
-              <Text style={styles.text}>Account Information for {email}</Text>
+              <Text style={styles.headerText}>Account Information for {username}</Text>
             </View>
 
-            <View style={styles.workflowCont}>
-              <TouchableOpacity style={[styles.button]} onPress={() => navigation.navigate('Account')}>
-                <Text style={styles.text}>Set</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.workflowCont}>
-              <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.workflowCont}>
-              <TouchableOpacity style={[styles.button, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button, styles.buttonR, styles.unset]} onPress={() => navigation.navigate('Account')}>
-                <Text style={[styles.text]}>Unset</Text>
-              </TouchableOpacity>
-            </View>
+            {Object.entries(workflows).map(([name, status]) => (
+              <View key={name} style={[styles.workflowCont]}>
+                <TouchableOpacity style={[styles.button, status ? styles.set : styles.unset,]}
+                onPress={() => handlePress(name)}>
+                  <Text style={styles.text}>{name}</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
 
           </View>
         </SafeAreaView>
@@ -80,59 +99,41 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: '#0f170b',
   },
-  header: {
-    alignItems: 'center',
-    marginTop: 20,
+  headerText: {
+    fontSize: 24,
+    color: '#5BFFBD',
+    fontWeight: "bold",
+    textAlign: "center",
   },
   text: {
-    fontSize: 22,
+    fontSize: 15,
     color: '#5BFFBD',
     fontWeight: "bold",
     textAlign: "center",
   },
   button: {
     backgroundColor: '#008B50',
-    padding: 10,
     borderRadius: 30,
     paddingLeft: 45,
     paddingRight: 45,
-    width: 200,
-    paddingTop: 50,
-    paddingBottom: 50,
+    paddingTop: 30,
+    paddingBottom: 30,
+    width: 300,
     textAlignVertical: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 11,
-    },
-    shadowOpacity: 30.95,
-    shadowRadius: 14.78,
-    elevation: 22,
-    alignSelf: 'flex-start'
-  },
-  buttonR: {
     alignSelf: 'flex-end',
-    marginLeft: 20,
-  },
-  tutCont: {
-    backgroundColor: '#173b05',
-    fontSize: 20,
-    position: "absolute",
-    top: 10,
-    textAlign: "center",
-  },
-  tutText: {
-    padding: 10,
-    borderRadius: 20,
   },
   workflowCont: {
     backgroundColor: '#173b05',
     flexDirection: 'row',
     padding: 20,
+    alignSelf: 'center'
   },
   unset: {
     backgroundColor: "#616161"
   },
+  set: {
+    backgroundColor: '#008B50',
+  }
 });
 
 export default AccountScreen;
